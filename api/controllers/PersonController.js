@@ -96,36 +96,41 @@ module.exports = {
     search: async function (req, res) {
 
         const qName = req.query.name || "";
-        const qAge = req.query.age || "";
-
-        if (qAge == "") {
-
-            var persons = await Person.find()
-                .where({ name: { contains: qName } })
-                .sort('name');
-
-            return res.view('person/index', { 'persons': persons });
-
+        const qAge = parseInt(req.query.age);
+    
+        if (isNaN(qAge)) {
+    
+            var persons = await Person.find({
+                where: { name: { contains: qName } },
+                sort: 'name'
+            });
+    
         } else {
-
-            var persons = await Person.find()
-                .where({ name: { contains: qName } })
-                .where({ age: qAge })
-                .sort('name');
-
-            return res.view('person/index', { 'persons': persons });
+    
+            var persons = await Person.find({
+                where: { name: { contains: qName }, age: qAge },
+                sort: 'name'
+            });
+    
         }
+    
+        return res.view('person/index', { 'persons': persons });
     },
 
     // action - paginate
     paginate: async function (req, res) {
 
-        const qPage = req.query.page - 1 || 0;
-
-        var persons = await Person.find().paginate(qPage, 2);
-
-        var numOfPage = Math.ceil(await Person.count() / 2);
-
+        const qPage = Math.max(req.query.page - 1, 0) || 0;
+    
+        const numOfItemsPerPage = 2;
+    
+        var persons = await Person.find({
+            limit: numOfItemsPerPage, 
+            skip: numOfItemsPerPage * qPage
+        });
+    
+        var numOfPage = Math.ceil(await Person.count() / numOfItemsPerPage);
+    
         return res.view('person/paginate', { 'persons': persons, 'count': numOfPage });
     },
 
