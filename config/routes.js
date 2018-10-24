@@ -10,6 +10,16 @@
 
 module.exports.routes = {
 
+  '/person/populate': { view: '404' },
+  '/user/populate': { view: '404' },
+  '/user/add': { view: '404' },
+  '/user/remove': { view: '404' },
+
+  '/person/:id/:association': 'PersonController.populate',
+  '/user/:id/:association': 'UserController.populate',
+  '/user/:id/:association/add/:fk': 'UserController.add',
+  '/user/:id/:association/remove/:fk': 'UserController.remove',
+
 
   //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
   //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
@@ -52,7 +62,7 @@ module.exports.routes = {
 
   'POST /person/update/:id': 'PersonController.update',
 
-  
+
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗

@@ -9,6 +9,11 @@
  */
 
 module.exports.policies = {
+  PersonController: {
+
+    create: 'isAdmin'
+
+}
 
   /***************************************************************************
   *                                                                          *
