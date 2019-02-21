@@ -24,19 +24,19 @@ await Person.createEach([
 
   sails.bcrypt = require('bcrypt');
 const saltRounds = 10;
-  sails.getInvalidIdMsg = function (opts) {
+sails.getInvalidIdMsg = function (opts) {
 
-    if (opts.id != undefined && isNaN(parseInt(opts.id))) {
-        return "Primary key specfied is invalid (incorrect type).";
-    }
+  // if (opts.id && isNaN(parseInt(opts.id))) {
+  //   return "Primary key specfied is invalid (incorrect type).";
+  // }
   
-    if (opts.fk != undefined && isNaN(parseInt(opts.fk))) {
-        return "Foreign key specfied is invalid (incorrect type).";
-    }
+  // if (opts.fk && isNaN(parseInt(opts.fk))) {
+  //   return "Foreign key specfied is invalid (incorrect type).";
+  // }
   
-    return null;        // falsy
-  
-  }
+  return null;        // falsy
+
+}
   const hash = await sails.bcrypt.hash('123456', saltRounds);
 
   await User.createEach([

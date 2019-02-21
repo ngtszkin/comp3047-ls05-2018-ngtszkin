@@ -11,6 +11,12 @@ module.exports = {
 
     username:{type :"string"},
     password:{type:"string"},
+    role: {
+      type: 'string',
+      // enum: ['admin', 'tester', 'visitor'],
+      isIn: ['admin', 'tester', 'visitor'],
+      defaultsTo: 'visitor'
+    },
 
 
     supervises: {
